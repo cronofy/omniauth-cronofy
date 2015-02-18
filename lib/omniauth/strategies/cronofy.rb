@@ -10,11 +10,11 @@ module OmniAuth
         :authorize_url => "/oauth/authorize"
       }
 
-      uid{ raw_info['account']['account_id'] }
+      uid{ raw_info['account_id'] }
 
       info do
         {
-          :email => raw_info['account']['email']
+          :email => raw_info['email']
         }
       end
 
@@ -25,7 +25,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/v1/account').parsed
+        @raw_info ||= access_token.get('/v1/account').parsed['account']
       end
     end
   end

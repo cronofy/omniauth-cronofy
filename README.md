@@ -1,8 +1,8 @@
-# Omniauth::Cronofy
+# OmniAuth Cronofy OAuth2 Strategy
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/omniauth/cronofy`. To experiment with that code, run `bin/console` for an interactive prompt.
+Strategy to authenticate with Cronofy via OAuth2 in OmniAuth.
 
-TODO: Delete this and the text above, and describe your gem
+Get your API accesss at: http://www.cronofy.com/developers
 
 ## Installation
 
@@ -22,13 +22,47 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Here's an example for adding the middleware to a Rails app in config/initializers/omniauth.rb:
 
-## Development
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+  provider :cronofy, ENV["CRONOFY_CLIENT_ID"], ENV["CRONOFY_CLIENT_SECRET"], {
+    scope: "read_account list_calendars create_event"
+  }
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+end
+```
+
+Then to auth with Cronofy you would navigate to `/auth/cronofy`
+
+## Configuration
+
+Configurable options
+
+* `scope`: A space-separated list of permissions you want to request from the user. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+
+```ruby
+  {
+    :provider => "cronofy",
+    :uid => "acc_382374827234",
+    :info => {
+      :email = "user@company.com"
+    },
+    :credentials => {
+      :token => "token",
+      :refresh_token => "another_token",
+      :expires_at => 1424884727,
+      :expires => true
+    },
+    :extra => {
+      :raw_info => {
+        :account_id = "acc_9324872847",
+        :email => "adam@cronofy.com"
+      }
+    }
+  }
+```
 
 ## Contributing
 
