@@ -9,7 +9,8 @@ module OmniAuth
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options, {
-        :site => "https://app.cronofy.com",
+        # :site => "https://app.cronofy.com",
+        :site => "http://local.cronofy.com",
         :authorize_url => "/oauth/authorize"
       }
 
@@ -18,7 +19,7 @@ module OmniAuth
       # additional calls (if the user id is returned with the token
       # or as a URI parameter). This may not be possible with all
       # providers.
-      uid{ raw_info['account']['id'] }
+      uid{ raw_info['account']['account_id'] }
 
       info do
         {
@@ -33,7 +34,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/v1/me').parsed
+        @raw_info ||= access_token.get('/v1/account').parsed
       end
     end
   end
