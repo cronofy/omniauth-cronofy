@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Here's an example for adding the middleware to a Rails app in config/initializers/omniauth.rb:
+Here's an example for adding the middleware to a Rails app in `config/initializers/omniauth.rb`:
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
@@ -41,6 +41,8 @@ Then to auth with Cronofy you would navigate to `/auth/cronofy`
 Configurable options
 
 * `scope`: A space-separated list of permissions you want to request from the user. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+
+## Auth Hash
 
 ```ruby
   {
