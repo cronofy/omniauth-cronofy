@@ -5,8 +5,11 @@ module OmniAuth
     class Cronofy < OmniAuth::Strategies::OAuth2
       option :name, "cronofy"
 
+      APP_HOST = "https://app.cronofy.com"
+      API_HOST = "https://api.cronofy.com"
+
       option :client_options, {
-        :site => "https://app.cronofy.com"
+        :site => APP_HOST
       }
 
       uid{ raw_info['account_id'] }
@@ -24,7 +27,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('https://api.cronofy.com/v1/account').parsed['account']
+        @raw_info ||= access_token.get("#{API_HOST}/v1/account").parsed['account']
       end
     end
   end
