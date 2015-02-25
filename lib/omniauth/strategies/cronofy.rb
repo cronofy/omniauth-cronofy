@@ -5,11 +5,24 @@ module OmniAuth
     class Cronofy < OmniAuth::Strategies::OAuth2
       option :name, "cronofy"
 
-      APP_HOST = "https://app.cronofy.com"
-      API_HOST = "https://api.cronofy.com"
+      def self.api_url
+        @api_url ||= (ENV['CRONOFY_API_URL'] || "https://api.cronofy.com")
+      end
+
+      def self.api_url=(value)
+        @api_url = value
+      end
+
+      def self.app_url
+        @app_url ||= (ENV['CRONOFY_APP_URL'] || "https://app.cronofy.com")
+      end
+
+      def self.app_url=(value)
+        @app_url = value
+      end
 
       option :client_options, {
-        :site => APP_HOST
+        :site => ::OmniAuth::Strategies::Cronofy.app_url
       }
 
       uid{ raw_info['account_id'] }
@@ -27,7 +40,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get("#{API_HOST}/v1/account").parsed['account']
+        @raw_info ||= access_token.get("#{::OmniAuth::Strategies::Cronofy.api_url}/v1/account").parsed['account']
       end
     end
   end
