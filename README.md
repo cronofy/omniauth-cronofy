@@ -49,7 +49,8 @@ Configurable options
     :provider => "cronofy",
     :uid => "acc_382374827234",
     :info => {
-      :email = "user@company.com"
+      :email => "jo@company.com",
+      :name => "Jo Smith"
     },
     :credentials => {
       :token => "token",
@@ -60,7 +61,8 @@ Configurable options
     :extra => {
       :raw_info => {
         :account_id = "acc_9324872847",
-        :email => "adam@cronofy.com"
+        :email => "jo@company.com",
+        :name => "Jo Smith"
       }
     }
   }
