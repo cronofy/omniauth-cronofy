@@ -36,7 +36,8 @@ module OmniAuth
 
       extra do
         {
-          'raw_info' => raw_info
+          'raw_info' => raw_info,
+          'linking_profile' => access_token['linking_profile'],
         }
       end
 
