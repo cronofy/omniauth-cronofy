@@ -1,0 +1,30 @@
+require 'omniauth-oauth2'
+
+module OmniAuth
+  module Strategies
+    class CronofyServiceAccount < OmniAuth::Strategies::OAuth2
+      option :name, "cronofy_service_account"
+
+      option :client_options, {
+        :site => ::OmniAuth::Strategies::Cronofy.app_url,
+        :authorize_url => "#{::OmniAuth::Strategies::Cronofy.app_url}/service_accounts/oauth/authorize",
+      }
+
+      uid{ raw_info['sub'] }
+
+      info do
+        {
+          :domain => raw_info['cronofy.service_account.domain'],
+        }
+      end
+
+      def callback_url
+        options[:redirect_uri] || (full_host + script_name + callback_path)
+      end
+
+      def raw_info
+        @raw_info ||= access_token.get("#{::OmniAuth::Strategies::Cronofy.api_url}/v1/userinfo").parsed
+      end
+    end
+  end
+end
