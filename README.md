@@ -36,11 +36,34 @@ end
 
 Then to auth with Cronofy you would navigate to `/auth/cronofy`
 
+### Service Accounts
+
+Service Accounts allow you to use one set of credentials to access an entire organizations calendar service. This works with Google Apps, Office 365 and Exchange.
+
+They can be used alongside standard end-user auth.
+
+Typical configuration.
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+
+  provider :cronofy_service_account, ENV["CRONOFY_CLIENT_ID"], ENV["CRONOFY_CLIENT_SECRET"], {
+    scope: "service_account/manage_accounts",
+    delegated_scope: "read_account read_events create_event delete_event",
+  }
+
+end
+```
+
+More information in Service Accounts documentation (link to follow).
+
 ## Configuration
 
 Configurable options
 
-* `scope`: A space-separated list of permissions you want to request from the user. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+* `scope`: A space-separated list of permissions you want to request for the authorization. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+
+* `delegated_scope` : Service Accounts only. A space-separated list of permissions you wish to request on the user accounts controlled by the Service Account. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
 
 ## Auth Hash
 
@@ -63,6 +86,31 @@ Configurable options
         :account_id = "acc_9324872847",
         :email => "jo@company.com",
         :name => "Jo Smith"
+      }
+    }
+  }
+```
+
+### Service Account Auth Hash
+
+```ruby
+  {
+    :provider => "cronofy_service_account",
+    :uid => "ser_382374827234",
+    :info => {
+      :domain => "company.com"
+    },
+    :credentials => {
+      :token => "token",
+      :refresh_token => "another_token",
+      :expires_at => 1424884727,
+      :expires => true
+    },
+    :extra => {
+      :raw_info => {
+        :sub = "ser_9324872847",
+        :cronofy.service_account.domain => "company.com",
+        :cronofy.type => "service_account"
       }
     }
   }
