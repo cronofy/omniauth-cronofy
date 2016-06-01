@@ -22,6 +22,12 @@ module OmniAuth
         options[:redirect_uri] || (full_host + script_name + callback_path)
       end
 
+      extra do
+        {
+          'raw_info' => raw_info,
+        }
+      end
+
       def raw_info
         @raw_info ||= access_token.get("#{::OmniAuth::Strategies::Cronofy.api_url}/v1/userinfo").parsed
       end
