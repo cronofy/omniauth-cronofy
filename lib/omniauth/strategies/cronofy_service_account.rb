@@ -10,6 +10,11 @@ module OmniAuth
         :authorize_url => "#{::OmniAuth::Strategies::Cronofy.app_url}/service_accounts/oauth/authorize",
       }
 
+      def request_phase
+        options[:authorize_params] = { delegated_scope: options[:delegated_scope]} if options[:delegated_scope]
+        super
+      end
+
       uid{ raw_info['sub'] }
 
       info do

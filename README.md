@@ -87,7 +87,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
   provider :cronofy_service_account, ENV["CRONOFY_CLIENT_ID"], ENV["CRONOFY_CLIENT_SECRET"], {
     scope: "service_account/manage_accounts",
-    delegated_scope: "read_account read_events create_event delete_event",
+    delegated_scope: "read_account read_events create_event delete_event"
   }
 
 end
