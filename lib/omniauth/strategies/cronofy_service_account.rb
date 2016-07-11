@@ -1,5 +1,3 @@
-require 'omniauth-oauth2'
-
 module OmniAuth
   module Strategies
     class CronofyServiceAccount < OmniAuth::Strategies::OAuth2
