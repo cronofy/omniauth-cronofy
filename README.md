@@ -1,8 +1,11 @@
 # OmniAuth Cronofy OAuth2 Strategy
 
-Strategy to authenticate with Cronofy via OAuth2 in OmniAuth. Contains strategies for both *End User* authorization and *Service Account* authorization.
+Strategy to authenticate with Cronofy via OAuth2 in OmniAuth.
 
-Get your API accesss at: http://www.cronofy.com/developers
+Contains strategies for both [End User authorization](#end-user-authorization)
+and [Service Account authorization](#service-account-authorization).
+
+Get your API accesss at: https://www.cronofy.com/developers
 
 ## Installation
 
