@@ -2,7 +2,10 @@
 
 Strategy to authenticate with Cronofy via OAuth2 in OmniAuth.
 
-Get your API accesss at: http://www.cronofy.com/developers
+Contains strategies for both [End User authorization](#end-user-authorization)
+and [Service Account authorization](#service-account-authorization).
+
+Get your API accesss at: https://www.cronofy.com/developers
 
 ## Installation
 
@@ -20,7 +23,9 @@ Or install it yourself as:
 
     $ gem install omniauth-cronofy
 
-## Usage
+## End User Authorization
+
+### Usage
 
 Here's an example for adding the middleware to a Rails app in `config/initializers/omniauth.rb`:
 
@@ -34,15 +39,16 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-Then to auth with Cronofy you would navigate to `/auth/cronofy`
+Then to auth with Cronofy you would navigate to `/auth/cronofy`.
 
-## Configuration
+### Configuration
 
 Configurable options
 
-* `scope`: A space-separated list of permissions you want to request from the user. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+* `scope`: A space-separated list of permissions you want to request for the end-user. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
 
-## Auth Hash
+
+### Auth Hash
 
 ```ruby
   {
@@ -63,6 +69,65 @@ Configurable options
         :account_id = "acc_9324872847",
         :email => "jo@company.com",
         :name => "Jo Smith"
+      }
+    }
+  }
+```
+
+
+## Service Account Authorization
+
+### Usage
+
+Service Accounts allow you to use one set of credentials to access an entire organizations calendar service. This works with Google Apps, Office 365 and Exchange.
+
+This can be used alongside standard end-user auth.
+
+Typical configuration.
+
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+
+  provider :cronofy_service_account, ENV["CRONOFY_CLIENT_ID"], ENV["CRONOFY_CLIENT_SECRET"], {
+    scope: "service_account/manage_accounts",
+    delegated_scope: "read_account read_events create_event delete_event"
+  }
+
+end
+```
+
+Then to auth with Cronofy you would navigate to `/auth/cronofy_service_account`.
+
+More information in Service Accounts documentation (link to follow).
+
+### Configuration
+
+Configurable options
+
+* `scope`: A space-separated list of permissions you want to request for the service account. Doc link to follow.
+
+* `delegated_scope` : A space-separated list of permissions you wish to request on the end-user accounts controlled by the Service Account. See the [API Authorization documentation](http://www.cronofy.com/developers/api#authorization) for a full list of available permissions.
+
+### Auth Hash
+
+```ruby
+  {
+    :provider => "cronofy_service_account",
+    :uid => "ser_382374827234",
+    :info => {
+      :domain => "company.com"
+    },
+    :credentials => {
+      :token => "token",
+      :refresh_token => "another_token",
+      :expires_at => 1424884727,
+      :expires => true
+    },
+    :extra => {
+      :raw_info => {
+        :sub = "ser_9324872847",
+        :cronofy.service_account.domain => "company.com",
+        :cronofy.type => "service_account"
       }
     }
   }

@@ -1,5 +1,5 @@
 module OmniAuth
   module Cronofy
-    VERSION = '0.4.0'
+    VERSION = '0.6.0'.freeze
   end
 end
