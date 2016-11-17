@@ -5,7 +5,7 @@ module OmniAuth
 
       option :client_options, {
         :site => ::OmniAuth::Strategies::Cronofy.app_url,
-        :authorize_url => "#{::OmniAuth::Strategies::Cronofy.app_url}/service_accounts/oauth/authorize",
+        :authorize_url => "#{::OmniAuth::Strategies::Cronofy.app_url}/enterprise_connect/oauth/authorize",
       }
 
       def request_phase
