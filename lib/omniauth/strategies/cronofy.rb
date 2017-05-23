@@ -46,6 +46,17 @@ module OmniAuth
       def raw_info
         @raw_info ||= access_token.get("#{::OmniAuth::Strategies::Cronofy.api_url}/v1/account").parsed['account']
       end
+
+      alias :old_request_phase :request_phase
+
+      def request_phase
+        link_token = session['omniauth.params']['link_token']
+        if link_token && !link_token.empty?
+          options[:authorize_params] ||= {}
+          options[:authorize_params].merge!(:link_token => link_token)
+        end
+        old_request_phase
+      end
     end
   end
 end
