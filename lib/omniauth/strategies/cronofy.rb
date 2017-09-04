@@ -4,7 +4,14 @@ module OmniAuth
       option :name, "cronofy"
 
       def self.api_url
-        @api_url ||= (ENV['CRONOFY_API_URL'] || "https://api.cronofy.com")
+        @api_url ||= (ENV['CRONOFY_API_URL'] || data_centre_api_url || "https://api.cronofy.com")
+      end
+
+      def self.data_centre_api_url
+        case ENV['CRONOFY_DATA_CENTRE']
+        when 'de'
+          "https://api-#{ENV['CRONOFY_DATA_CENTRE']}.cronofy.com"
+        end
       end
 
       def self.api_url=(value)
@@ -12,7 +19,14 @@ module OmniAuth
       end
 
       def self.app_url
-        @app_url ||= (ENV['CRONOFY_APP_URL'] || "https://app.cronofy.com")
+        @app_url ||= (ENV['CRONOFY_APP_URL'] || data_centre_app_url || "https://app.cronofy.com")
+      end
+
+      def self.data_centre_app_url
+        case ENV['CRONOFY_DATA_CENTRE']
+        when 'de'
+          "https://app-#{ENV['CRONOFY_DATA_CENTRE']}.cronofy.com"
+        end
       end
 
       def self.app_url=(value)
