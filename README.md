@@ -41,6 +41,14 @@ end
 
 Then to auth with Cronofy you would navigate to `/auth/cronofy`.
 
+#### Explicit Linking
+
+Cronofy supports [explicit linking of calendar accounts](https://www.cronofy.com/developers/api/alpha/#auth-explicit-linking) by passing a `link_token` to the auth flow. This strategy supports that token be passed as a query string parameter to the auth redirect.
+
+```
+/auth/cronofy?link_token=hga672376....
+```
+
 ### Configuration
 
 Configurable options
