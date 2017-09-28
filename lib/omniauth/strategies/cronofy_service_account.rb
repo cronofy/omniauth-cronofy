@@ -1,11 +1,10 @@
 module OmniAuth
   module Strategies
-    class CronofyServiceAccount < OmniAuth::Strategies::OAuth2
+    class CronofyServiceAccount < CronofyBase
       option :name, "cronofy_service_account"
 
       option :client_options, {
-        :site => ::OmniAuth::Strategies::Cronofy.app_url,
-        :authorize_url => "#{::OmniAuth::Strategies::Cronofy.app_url}/enterprise_connect/oauth/authorize",
+        :authorize_url => "/enterprise_connect/oauth/authorize",
       }
 
       def request_phase
@@ -13,7 +12,7 @@ module OmniAuth
         super
       end
 
-      uid{ raw_info['sub'] }
+      uid { raw_info['sub'] }
 
       info do
         {
@@ -32,7 +31,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get("#{::OmniAuth::Strategies::Cronofy.api_url}/v1/userinfo").parsed
+        @raw_info ||= access_token.get("#{client_options[:api_url]}/v1/userinfo").parsed
       end
     end
   end
