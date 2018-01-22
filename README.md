@@ -48,6 +48,13 @@ Cronofy supports [explicit linking of calendar accounts](https://www.cronofy.com
 ```
 /auth/cronofy?link_token=hga672376....
 ```
+#### Avoid Linking
+
+Cronofy supports [to avoid profiles to be linked](https://www.cronofy.com/developers/api/#request-authorization-avoid_linking) by passing an `avoid_linking` param with `true` value to the auth flow.
+
+```
+/auth/cronofy?avoid_linking=true
+```
 
 ### Configuration
 
