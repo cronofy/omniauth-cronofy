@@ -33,6 +33,13 @@ module OmniAuth
           options[:authorize_params] ||= {}
           options[:authorize_params].merge!(:link_token => link_token)
         end
+
+        avoid_linking = session['omniauth.params']['avoid_linking']
+        if avoid_linking
+          options[:authorize_params] ||= {}
+          options[:authorize_params].merge!(:avoid_linking => avoid_linking)
+        end
+
         super
       end
     end
