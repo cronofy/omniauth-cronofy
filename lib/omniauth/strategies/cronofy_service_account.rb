@@ -15,9 +15,12 @@ module OmniAuth
       uid { raw_info['sub'] }
 
       info do
-        {
-          :domain => raw_info['cronofy.service_account.domain'],
+        data = {
+          :common_name => raw_info['cronofy.service_account.domain'] || raw_info['cronofy.service_account.email']
         }
+        data[:domain] = raw_info['cronofy.service_account.domain'] if raw_info['cronofy.service_account.domain']
+        data[:email] = raw_info['cronofy.service_account.email'] if raw_info['cronofy.service_account.email']
+        data
       end
 
       def callback_url
