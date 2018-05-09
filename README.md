@@ -130,6 +130,7 @@ Configurable options
     :provider => "cronofy_service_account",
     :uid => "ser_382374827234",
     :info => {
+      :common_name => "company.com",
       :domain => "company.com"
     },
     :credentials => {
@@ -147,6 +148,8 @@ Configurable options
     }
   }
 ```
+
+The `info` element may contain different elements, `domain` and/or `email` depending on the calendar service being integrated with. `common_name` is always returned.
 
 ## Contributing
 
