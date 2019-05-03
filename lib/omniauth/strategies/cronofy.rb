@@ -1,6 +1,12 @@
 module OmniAuth
   module Strategies
     class Cronofy < CronofyBase
+      WHITELISTED_AUTHORIZE_PARAMS = %w{
+        avoid_linking
+        link_token
+        provider_name
+      }
+
       option :name, "cronofy"
 
       uid { raw_info['account_id'] }
@@ -28,19 +34,20 @@ module OmniAuth
       end
 
       def request_phase
+        session_params = session['omniauth.params']
         params = {}
-        %w{
-          link_token
-          avoid_linking
-          provider_name
-        }.each do |param|
-          if session['omniauth.params'][param] && !session['omniauth.params'][param].empty?
-            params[param] = session['omniauth.params'][param]
-          end
+
+        WHITELISTED_AUTHORIZE_PARAMS.each do |param|
+          next unless session_params[param]
+          params[param] = session_params[param]
         end
 
-        options[:authorize_params] ||= {}
-        options[:authorize_params].merge!(params)
+        if options[:authorize_params]
+          options[:authorize_params].merge!(params)
+        else
+          options[:authorize_params] = params
+        end
+
         super
       end
     end
