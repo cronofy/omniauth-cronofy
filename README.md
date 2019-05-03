@@ -43,17 +43,25 @@ Then to auth with Cronofy you would navigate to `/auth/cronofy`.
 
 #### Explicit Linking
 
-Cronofy supports [explicit linking of calendar accounts](https://www.cronofy.com/developers/api/alpha/#auth-explicit-linking) by passing a `link_token` to the auth flow. This strategy supports that token be passed as a query string parameter to the auth redirect.
+Cronofy supports [explicit linking of calendar accounts](https://docs.cronofy.com/developers/api-alpha/explicit-linking/) by passing a `link_token` to the auth flow. This strategy supports that token be passed as a query string parameter to the auth redirect.
 
 ```
 /auth/cronofy?link_token=hga672376....
 ```
 #### Avoid Linking
 
-Cronofy supports [to avoid profiles to be linked](https://www.cronofy.com/developers/api/#request-authorization-avoid_linking) by passing an `avoid_linking` param with `true` value to the auth flow.
+Cronofy supports [to avoid profiles to be linked](https://docs.cronofy.com/developers/api/authorization/request-authorization/#avoid_linking) by passing an `avoid_linking` param with `true` value to the auth flow.
 
 ```
 /auth/cronofy?avoid_linking=true
+```
+
+#### Provider Name
+
+Cronofy allows the [pre-selection of a calendar provider](https://docs.cronofy.com/developers/api/authorization/request-authorization/#provider_name) in the auth flow using the `provider_name` param with one of the documented values.
+
+```
+/auth/cronofy?provider_name=office365
 ```
 
 ### Configuration
