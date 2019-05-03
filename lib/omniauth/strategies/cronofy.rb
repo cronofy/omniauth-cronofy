@@ -28,18 +28,19 @@ module OmniAuth
       end
 
       def request_phase
-        link_token = session['omniauth.params']['link_token']
-        if link_token && !link_token.empty?
-          options[:authorize_params] ||= {}
-          options[:authorize_params].merge!(:link_token => link_token)
+        params = {}
+        %w{
+          link_token
+          avoid_linking
+          provider_name
+        }.each do |param|
+          if session['omniauth.params'][param] && !session['omniauth.params'][param].empty?
+            params[param] = session['omniauth.params'][param]
+          end
         end
 
-        avoid_linking = session['omniauth.params']['avoid_linking']
-        if avoid_linking
-          options[:authorize_params] ||= {}
-          options[:authorize_params].merge!(:avoid_linking => avoid_linking)
-        end
-
+        options[:authorize_params] ||= {}
+        options[:authorize_params].merge!(params)
         super
       end
     end
