@@ -17,7 +17,7 @@ module OmniAuth
 
       def data_center_url(type, value)
         case value.to_s
-        when 'de'
+        when 'au', 'de', 'ca', 'sg', 'uk'
           "https://#{type}-#{value}.cronofy.com"
         end
       end
